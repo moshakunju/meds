@@ -6,101 +6,154 @@
 <title>Medicine Cost Calculator</title>
 <style>
   body {
-    font-family: Arial, sans-serif;
-    background: #f5faff;
+    font-family: "Poppins", Arial, sans-serif;
+    background: linear-gradient(135deg, #e0f7ff, #f6faff);
     color: #222;
-    max-width: 450px;
-    margin: 30px auto;
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 0 12px rgba(0,0,0,0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
   }
+
+  .container {
+    background: #fff;
+    padding: 25px 30px;
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    width: 95%;
+    max-width: 480px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+  }
+
   h2 {
     text-align: center;
     color: #0074D9;
+    margin-bottom: 20px;
+    letter-spacing: 0.5px;
   }
+
   table {
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
   }
+
   th, td {
-    padding: 8px;
+    padding: 10px 8px;
     text-align: left;
   }
+
   th {
     background: #0074D9;
     color: white;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
   }
+
+  tr:nth-child(even) {
+    background: #f7faff;
+  }
+
   input {
-    width: 80px;
-    padding: 5px;
-    border-radius: 6px;
-    border: 1px solid #aaa;
+    width: 90px;
+    padding: 7px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
     text-align: center;
+    transition: all 0.2s ease;
   }
+
+  input:focus {
+    border-color: #0074D9;
+    box-shadow: 0 0 6px rgba(0, 116, 217, 0.3);
+    outline: none;
+  }
+
   button {
     width: 100%;
-    padding: 10px;
-    background: #0074D9;
+    padding: 12px;
+    background: linear-gradient(90deg, #0074D9, #0099ff);
     color: white;
-    font-weight: bold;
+    font-weight: 600;
     border: none;
-    border-radius: 6px;
+    border-radius: 10px;
     cursor: pointer;
+    font-size: 1em;
+    letter-spacing: 0.3px;
+    box-shadow: 0 4px 12px rgba(0, 116, 217, 0.3);
+    transition: all 0.25s ease;
   }
+
   button:hover {
-    background: #005fa3;
+    background: linear-gradient(90deg, #0064bf, #0088e0);
+    box-shadow: 0 6px 16px rgba(0, 116, 217, 0.45);
+    transform: translateY(-2px);
   }
+
+  button:active {
+    transform: translateY(1px);
+  }
+
   #result {
     text-align: center;
     margin-top: 20px;
-    font-size: 1.2em;
-    font-weight: bold;
+    font-size: 1.25em;
+    font-weight: 600;
     color: #0074D9;
+    background: #f0f8ff;
+    padding: 12px;
+    border-radius: 10px;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.08);
   }
 </style>
 </head>
 <body>
 
-<h2>Medicine Cost Calculator</h2>
+<div class="container">
+  <h2>💊 Medicine Cost Calculator</h2>
 
-<table>
-  <tr>
-    <th>Medicine</th>
-    <th>Rate (₹ / 10 Tabs)</th>
-    <th>Qty (Tabs)</th>
-  </tr>
-  <tr>
-    <td>Walapan40</td>
-    <td>84.5</td>
-    <td><input type="number" id="Walapan40" min="0" value="0"></td>
-  </tr>
-  <tr>
-    <td>Novaclave 625</td>
-    <td>204.96</td>
-    <td><input type="number" id="Novaclave625" min="0" value="0"></td>
-  </tr>
-  <tr>
-    <td>Aceclowal P</td>
-    <td>76.2</td>
-    <td><input type="number" id="AceclowalP" min="0" value="0"></td>
-  </tr>
-  <tr>
-    <td>Oflowal oz</td>
-    <td>159.5</td>
-    <td><input type="number" id="Oflowaloz" min="0" value="0"></td>
-  </tr>
-  <tr>
-    <td>Walmox 500</td>
-    <td>68.75</td>
-    <td><input type="number" id="Walmox500" min="0" value="0"></td>
-  </tr>
-</table>
+  <table>
+    <tr>
+      <th>Medicine</th>
+      <th>Rate (₹ / 10 Tabs)</th>
+      <th>Qty (Tabs)</th>
+    </tr>
+    <tr>
+      <td>Walapan40</td>
+      <td>84.5</td>
+      <td><input type="number" id="Walapan40" min="0" placeholder="Enter"></td>
+    </tr>
+    <tr>
+      <td>Novaclave 625</td>
+      <td>204.96</td>
+      <td><input type="number" id="Novaclave625" min="0" placeholder="Enter"></td>
+    </tr>
+    <tr>
+      <td>Aceclowal P</td>
+      <td>76.2</td>
+      <td><input type="number" id="AceclowalP" min="0" placeholder="Enter"></td>
+    </tr>
+    <tr>
+      <td>Oflowal oz</td>
+      <td>159.5</td>
+      <td><input type="number" id="Oflowaloz" min="0" placeholder="Enter"></td>
+    </tr>
+    <tr>
+      <td>Walmox 500</td>
+      <td>68.75</td>
+      <td><input type="number" id="Walmox500" min="0" placeholder="Enter"></td>
+    </tr>
+  </table>
 
-<button type="button" onclick="calculateTotal()">Calculate Total</button>
-
-<div id="result"></div>
+  <button type="button" onclick="calculateTotal()">Calculate Total</button>
+  <div id="result"></div>
+</div>
 
 <script>
 function calculateTotal() {
@@ -120,7 +173,7 @@ function calculateTotal() {
   }
 
   document.getElementById("result").textContent = 
-    "💰 Total Cost: ₹" + total.toFixed(2);
+    total > 0 ? "💰 Total Cost: ₹" + total.toFixed(2) : "Enter quantity to calculate total.";
 }
 </script>
 
