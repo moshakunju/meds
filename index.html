@@ -75,6 +75,25 @@
     outline: none;
   }
 
+  .consult {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  select {
+    padding: 7px 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 1em;
+    transition: 0.2s ease;
+  }
+
+  select:focus {
+    border-color: #0074D9;
+    box-shadow: 0 0 6px rgba(0, 116, 217, 0.3);
+    outline: none;
+  }
+
   button {
     width: 100%;
     padding: 12px;
@@ -151,6 +170,14 @@
     </tr>
   </table>
 
+  <div class="consult">
+    <label for="consultFee"><strong>Consultation Fee:</strong></label>
+    <select id="consultFee">
+      <option value="no">No</option>
+      <option value="yes">Yes (₹200)</option>
+    </select>
+  </div>
+
   <button type="button" onclick="calculateTotal()">Calculate Total</button>
   <div id="result"></div>
 </div>
@@ -172,8 +199,15 @@ function calculateTotal() {
     total += costPerTab * qtyTabs;
   }
 
-  document.getElementById("result").textContent = 
-    total > 0 ? "💰 Total Cost: ₹" + total.toFixed(2) : "Enter quantity to calculate total.";
+  const consult = document.getElementById("consultFee").value;
+  if (consult === "yes") {
+    total += 200;
+  }
+
+  document.getElementById("result").textContent =
+    total > 0
+      ? `💰 Total Cost: ₹${total.toFixed(2)}`
+      : "Please enter tablet quantities or select consultation.";
 }
 </script>
 
