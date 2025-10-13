@@ -7,9 +7,9 @@
 <style>
   body {
     font-family: Arial, sans-serif;
-    background: #f2f7ff;
+    background: #f5faff;
     color: #222;
-    max-width: 420px;
+    max-width: 450px;
     margin: 30px auto;
     padding: 20px;
     border-radius: 12px;
@@ -22,21 +22,21 @@
   table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 15px;
+    margin-bottom: 15px;
   }
   th, td {
-    text-align: left;
     padding: 8px;
+    text-align: left;
   }
   th {
     background: #0074D9;
     color: white;
   }
-  input[type="number"] {
+  input {
     width: 80px;
     padding: 5px;
-    border-radius: 5px;
-    border: 1px solid #999;
+    border-radius: 6px;
+    border: 1px solid #aaa;
     text-align: center;
   }
   button {
@@ -48,7 +48,6 @@
     border: none;
     border-radius: 6px;
     cursor: pointer;
-    margin-top: 15px;
   }
   button:hover {
     background: #005fa3;
@@ -69,37 +68,37 @@
 <table>
   <tr>
     <th>Medicine</th>
-    <th>Rate (₹ / 10 tabs)</th>
-    <th>No. of Tablets</th>
+    <th>Rate (₹ / 10 Tabs)</th>
+    <th>Qty (Tabs)</th>
   </tr>
   <tr>
     <td>Walapan40</td>
     <td>84.5</td>
-    <td><input type="number" id="Walapan40" min="0" placeholder="0"></td>
+    <td><input type="number" id="Walapan40" min="0" value="0"></td>
   </tr>
   <tr>
     <td>Novaclave 625</td>
     <td>204.96</td>
-    <td><input type="number" id="Novaclave625" min="0" placeholder="0"></td>
+    <td><input type="number" id="Novaclave625" min="0" value="0"></td>
   </tr>
   <tr>
     <td>Aceclowal P</td>
     <td>76.2</td>
-    <td><input type="number" id="AceclowalP" min="0" placeholder="0"></td>
+    <td><input type="number" id="AceclowalP" min="0" value="0"></td>
   </tr>
   <tr>
     <td>Oflowal oz</td>
     <td>159.5</td>
-    <td><input type="number" id="Oflowaloz" min="0" placeholder="0"></td>
+    <td><input type="number" id="Oflowaloz" min="0" value="0"></td>
   </tr>
   <tr>
     <td>Walmox 500</td>
     <td>68.75</td>
-    <td><input type="number" id="Walmox500" min="0" placeholder="0"></td>
+    <td><input type="number" id="Walmox500" min="0" value="0"></td>
   </tr>
 </table>
 
-<button onclick="calculateTotal()">Calculate Total</button>
+<button type="button" onclick="calculateTotal()">Calculate Total</button>
 
 <div id="result"></div>
 
@@ -114,5 +113,16 @@ function calculateTotal() {
   };
 
   let total = 0;
-  for (const med in rates) {
-    const qt
+  for (let med in rates) {
+    const qtyTabs = parseFloat(document.getElementById(med).value) || 0;
+    const costPerTab = rates[med] / 10;
+    total += costPerTab * qtyTabs;
+  }
+
+  document.getElementById("result").textContent = 
+    "💰 Total Cost: ₹" + total.toFixed(2);
+}
+</script>
+
+</body>
+</html>
