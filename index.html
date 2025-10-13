@@ -60,8 +60,7 @@
     background: #f7faff;
   }
 
-  input[type="checkbox"],
-  input[type="radio"] {
+  input[type="checkbox"] {
     transform: scale(1.2);
     accent-color: #0074D9;
     cursor: pointer;
@@ -159,8 +158,8 @@
       <td>Walmox 500</td>
       <td>68.75</td>
       <td class="walmox-options">
-        <label><input type="radio" name="WalmoxTabs" id="Walmox9"> 9 tabs</label>
-        <label><input type="radio" name="WalmoxTabs" id="Walmox15"> 15 tabs</label>
+        <label><input type="checkbox" id="Walmox9"> 9 tabs</label>
+        <label><input type="checkbox" id="Walmox15"> 15 tabs</label>
       </td>
     </tr>
   </table>
@@ -202,7 +201,7 @@ function calculateTotal() {
     total += (rates.AceclowalP.price / 10) * 15;
   }
 
-  // Walmox 500 radio options
+  // Walmox 500 checkboxes
   if (document.getElementById('Walmox9').checked) {
     total += (rates.Walmox500.price / 10) * 9;
   }
