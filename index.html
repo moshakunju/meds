@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Drug Combo Cost Calculator</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f2f7ff;
+    color: #222;
+    max-width: 400px;
+    margin: 30px auto;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 0 12px rgba(0,0,0,0.1);
+  }
+  h2 {
+    text-align: center;
+    color: #0074D9;
+  }
+  label {
+    font-weight: bold;
+  }
+  select, input {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0 15px;
+    border-radius: 6px;
+    border: 1px solid #aaa;
+  }
+  button {
+    width: 100%;
+    padding: 10px;
+    background: #0074D9;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  button:hover {
+    background: #005fa3;
+  }
+  #result {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #0074D9;
+  }
+</style>
+</head>
+<body>
+
+<h2>Drug Combo Cost Calculator</h2>
+
+<form id="drugForm">
+  <label>Medicine 1:</label>
+  <select id="drug1">
+    <option value="">-- Select Medicine --</option>
+    <option value="84.5">Walapan40</option>
+    <option value="204.96">Novaclave 625</option>
+    <option value="76.2">Aceclowal P</option>
+    <option value="159.5">Oflowal oz</option>
+    <option value="68.75">Walmox 500</option>
+  </select>
+  <input type="number" id="qty1" placeholder="No. of 10-tab packs" min="0">
+
+  <label>Medicine 2:</label>
+  <select id="drug2">
+    <option value="">-- Select Medicine --</option>
+    <option value="84.5">Walapan40</option>
+    <option value="204.96">Novaclave 625</option>
+    <option value="76.2">Aceclowal P</option>
+    <option value="159.5">Oflowal oz</option>
+    <option value="68.75">Walmox 500</option>
+  </select>
+  <input type="number" id="qty2" placeholder="No. of 10-tab packs" min="0">
+
+  <label>Medicine 3:</label>
+  <select id="drug3">
+    <option value="">-- Select Medicine --</option>
+    <option value="84.5">Walapan40</option>
+    <option value="204.96">Novaclave 625</option>
+    <option value="76.2">Aceclowal P</option>
+    <option value="159.5">Oflowal oz</option>
+    <option value="68.75">Walmox 500</option>
+  </select>
+  <input type="number" id="qty3" placeholder="No. of 10-tab packs" min="0">
+
+  <button type="button" onclick="calculateTotal()">Calculate Total</button>
+</form>
+
+<div id="result"></div>
+
+<script>
+function calculateTotal() {
+  let total = 0;
+  
+  for (let i = 1; i <= 3; i++) {
+    const price = parseFloat(document.getElementById('drug' + i).value) || 0;
+    const qty = parseFloat(document.getElementById('qty' + i).value) || 0;
+    total += price * qty;
+  }
+
+  document.getElementById('result').textContent = 
+    "💰 Total Cost: ₹" + total.toFixed(2);
+}
+</script>
+
+</body>
+</html>
