@@ -60,38 +60,16 @@
     background: #f7faff;
   }
 
-  input {
-    width: 90px;
-    padding: 7px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    text-align: center;
-    transition: all 0.2s ease;
-  }
-
-  input:focus {
-    border-color: #0074D9;
-    box-shadow: 0 0 6px rgba(0, 116, 217, 0.3);
-    outline: none;
+  input[type="checkbox"] {
+    transform: scale(1.2);
+    accent-color: #0074D9;
+    cursor: pointer;
   }
 
   .consult {
-    margin-bottom: 20px;
+    margin: 15px 0;
     text-align: center;
-  }
-
-  select {
-    padding: 7px 10px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    font-size: 1em;
-    transition: 0.2s ease;
-  }
-
-  select:focus {
-    border-color: #0074D9;
-    box-shadow: 0 0 6px rgba(0, 116, 217, 0.3);
-    outline: none;
+    font-weight: 500;
   }
 
   button {
@@ -115,10 +93,6 @@
     transform: translateY(-2px);
   }
 
-  button:active {
-    transform: translateY(1px);
-  }
-
   #result {
     text-align: center;
     margin-top: 20px;
@@ -129,6 +103,18 @@
     padding: 12px;
     border-radius: 10px;
     box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.08);
+  }
+
+  .ace-options {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .ace-options label {
+    display: flex;
+    align-items: center;
+    gap: 4px;
   }
 </style>
 </head>
@@ -141,73 +127,82 @@
     <tr>
       <th>Medicine</th>
       <th>Rate (₹ / 10 Tabs)</th>
-      <th>Qty (Tabs)</th>
+      <th>Select / Qty</th>
     </tr>
     <tr>
-      <td>Walapan40</td>
+      <td>Walapan 40 (5 tabs)</td>
       <td>84.5</td>
-      <td><input type="number" id="Walapan40" min="0" placeholder="Enter"></td>
+      <td><input type="checkbox" id="Walapan40"></td>
     </tr>
     <tr>
-      <td>Novaclave 625</td>
+      <td>Novaclave 625 (10 tabs)</td>
       <td>204.96</td>
-      <td><input type="number" id="Novaclave625" min="0" placeholder="Enter"></td>
+      <td><input type="checkbox" id="Novaclave625"></td>
     </tr>
     <tr>
       <td>Aceclowal P</td>
       <td>76.2</td>
-      <td><input type="number" id="AceclowalP" min="0" placeholder="Enter"></td>
+      <td class="ace-options">
+        <label><input type="checkbox" id="Ace9"> 9 tabs</label>
+        <label><input type="checkbox" id="Ace15"> 15 tabs</label>
+      </td>
     </tr>
     <tr>
-      <td>Oflowal oz</td>
+      <td>Oflowal oz (10 tabs)</td>
       <td>159.5</td>
-      <td><input type="number" id="Oflowaloz" min="0" placeholder="Enter"></td>
+      <td><input type="checkbox" id="Oflowaloz"></td>
     </tr>
     <tr>
-      <td>Walmox 500</td>
+      <td>Walmox 500 (9 tabs)</td>
       <td>68.75</td>
-      <td><input type="number" id="Walmox500" min="0" placeholder="Enter"></td>
+      <td><input type="checkbox" id="Walmox500"></td>
     </tr>
   </table>
 
   <div class="consult">
-    <label for="consultFee"><strong>Consultation Fee:</strong></label>
-    <select id="consultFee">
-      <option value="no">No</option>
-      <option value="yes">Yes (₹200)</option>
-    </select>
+    <label><input type="checkbox" id="consultFee"> Include Consultation Fee (₹200)</label>
   </div>
 
   <button type="button" onclick="calculateTotal()">Calculate Total</button>
+
   <div id="result"></div>
 </div>
 
 <script>
 function calculateTotal() {
   const rates = {
-    Walapan40: 84.5,
-    Novaclave625: 204.96,
-    AceclowalP: 76.2,
-    Oflowaloz: 159.5,
-    Walmox500: 68.75
+    Walapan40: { price: 84.5, tabs: 5 },
+    Novaclave625: { price: 204.96, tabs: 10 },
+    AceclowalP: { price: 76.2 },
+    Oflowaloz: { price: 159.5, tabs: 10 },
+    Walmox500: { price: 68.75, tabs: 9 }
   };
 
   let total = 0;
-  for (let med in rates) {
-    const qtyTabs = parseFloat(document.getElementById(med).value) || 0;
-    const costPerTab = rates[med] / 10;
-    total += costPerTab * qtyTabs;
+
+  // Fixed-quantity meds
+  ['Walapan40', 'Novaclave625', 'Oflowaloz', 'Walmox500'].forEach(id => {
+    if (document.getElementById(id).checked) {
+      const costPerTab = rates[id].price / 10;
+      total += costPerTab * rates[id].tabs;
+    }
+  });
+
+  // Aceclowal P options
+  if (document.getElementById('Ace9').checked) {
+    total += (rates.AceclowalP.price / 10) * 9;
+  }
+  if (document.getElementById('Ace15').checked) {
+    total += (rates.AceclowalP.price / 10) * 15;
   }
 
-  const consult = document.getElementById("consultFee").value;
-  if (consult === "yes") {
+  // Consultation fee
+  if (document.getElementById('consultFee').checked) {
     total += 200;
   }
 
-  document.getElementById("result").textContent =
-    total > 0
-      ? `💰 Total Cost: ₹${total.toFixed(2)}`
-      : "Please enter tablet quantities or select consultation.";
+  document.getElementById('result').textContent =
+    total > 0 ? `💰 Total Cost: ₹${total.toFixed(2)}` : "Please select medicines.";
 }
 </script>
 
