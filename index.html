@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Medicine Cost Calculator</title>
 <style>
   body {
@@ -139,8 +139,9 @@
     <tr><td>Oneclav Suspension</td><td>67.5</td><td class="multi-options"><label><input type="checkbox" id="One1"> 1</label><label><input type="checkbox" id="One2"> 2</label></td></tr>
     <tr><td>Clohex HEAL</td><td>302.5</td><td class="multi-options"><label><input type="checkbox" id="Heal1"> 1</label><label><input type="checkbox" id="Heal2"> 2</label></td></tr>
     <tr><td>Novaclave 625 (10 tabs)</td><td>204.96</td><td><input type="checkbox" id="Novaclave625"></td></tr>
-    <tr><td>Aceclo Trypsin</td><td>130</td><td class="multi-options"><label><input type="checkbox" id="Tryp6"> 6</label><label><input type="checkbox" id="Tryp10"> 10</label></td></tr>
+    <tr><td>Aceclo Trypsin (10 tabs)</td><td>130</td><td class="multi-options"><label><input type="checkbox" id="Tryp6"> 6</label><label><input type="checkbox" id="Tryp10"> 10</label></td></tr>
     <tr><td>Walapan 40 (5 tabs)</td><td>84.5</td><td><input type="checkbox" id="Walapan40"></td></tr>
+    <tr><td>Oflowal OZ (10 tabs)</td><td>159.5</td><td><input type="checkbox" id="OflowalOZ"></td></tr>
     <tr><td>Walmox 500</td><td>68.75</td><td class="multi-options"><label><input type="checkbox" id="Walmox9"> 9</label><label><input type="checkbox" id="Walmox15"> 15</label></td></tr>
     <tr><td>Aceclowal P</td><td>76.2</td><td class="multi-options"><label><input type="checkbox" id="Ace9"> 9</label><label><input type="checkbox" id="Ace15"> 15</label></td></tr>
   </table>
@@ -161,7 +162,8 @@ function calculateTotal() {
     Novaclave625: { price: 204.96, tabs: 10 },
     AceclowalP: { price: 76.2 },
     Walmox500: { price: 68.75 },
-    AcecloTrypsin: { price: 130 },
+    OflowalOZ: { price: 159.5, tabs: 10 },
+    AcecloTrypsin: { price: 130 }, // per 10 tablets
     Periogard: { price: 230 },
     Colgate: { price: 180 },
     VantejF: { price: 312.5 },
@@ -174,11 +176,11 @@ function calculateTotal() {
 
   let total = 0;
 
-  // Fixed-quantity meds
-  ['Walapan40', 'Novaclave625'].forEach(id => {
+  // Fixed quantity medicines
+  ['Walapan40', 'Novaclave625', 'OflowalOZ'].forEach(id => {
     if (document.getElementById(id).checked) {
       const costPerTab = rates[id].price / 10;
-      total += costPerTab * rates[id].tabs;
+      total += costPerTab * (rates[id].tabs || 10);
     }
   });
 
@@ -190,11 +192,11 @@ function calculateTotal() {
   if (document.getElementById('Walmox9').checked) total += (rates.Walmox500.price / 10) * 9;
   if (document.getElementById('Walmox15').checked) total += (rates.Walmox500.price / 10) * 15;
 
-  // Aceclo Trypsin
-  if (document.getElementById('Tryp6').checked) total += rates.AcecloTrypsin.price * 6;
-  if (document.getElementById('Tryp10').checked) total += rates.AcecloTrypsin.price * 10;
+  // Aceclo Trypsin — per 10 tablets
+  if (document.getElementById('Tryp6').checked) total += (rates.AcecloTrypsin.price / 10) * 6;
+  if (document.getElementById('Tryp10').checked) total += (rates.AcecloTrypsin.price / 10) * 10;
 
-  // 1 or 2 quantity items
+  // 1 or 2 qty items
   const multi = [
     ['Periogard', 'Periogard1', 'Periogard2'],
     ['Colgate', 'Colgate1', 'Colgate2'],
@@ -210,8 +212,10 @@ function calculateTotal() {
     if (document.getElementById(id2).checked) total += rates[key].price * 2;
   });
 
+  // Consultation Fee
   if (document.getElementById('consultFee').checked) total += 200;
 
+  // Display result
   document.getElementById('result').textContent =
     total > 0 ? `💰 Total Cost: ₹${total.toFixed(2)}` : "Please select medicines.";
 }
