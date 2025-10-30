@@ -208,7 +208,7 @@
     </tr>
     <tr>
       <td>Oneclav Suspension</td>
-      <td>670.5</td>
+      <td>67.5</td>
       <td class="custom-options">
         <label><input type="checkbox" id="Oneclav1"> 1</label>
         <label><input type="checkbox" id="Oneclav2"> 2</label>
@@ -262,7 +262,7 @@ function calculateTotal() {
     VantejSensitive: { price: 181.5 },
     ClohexADS: { price: 97.5 },
     Ibupor: { price: 60 },
-    Oneclav: { price: 670.5 },
+    Oneclav: { price: 67.5 },
     VantejForte: { price: 312.5 },
     Colgate: { price: 180 },
     Perigard: { price: 230 }
@@ -270,7 +270,6 @@ function calculateTotal() {
 
   let total = 0;
 
-  // Fixed-quantity meds
   ['Walapan40', 'Novaclave625', 'Oflowaloz'].forEach(id => {
     if (document.getElementById(id).checked) {
       const costPerTab = rates[id].price / 10;
@@ -278,15 +277,12 @@ function calculateTotal() {
     }
   });
 
-  // Aceclowal P options
   if (document.getElementById('Ace9').checked) total += (rates.AceclowalP.price / 10) * 9;
   if (document.getElementById('Ace15').checked) total += (rates.AceclowalP.price / 10) * 15;
 
-  // Walmox 500
   if (document.getElementById('Walmox9').checked) total += (rates.Walmox500.price / 10) * 9;
   if (document.getElementById('Walmox15').checked) total += (rates.Walmox500.price / 10) * 15;
 
-  // New medicines
   if (document.getElementById('AceTrypsin6').checked) total += (rates.AceTrypsin.price / 10) * 6;
   if (document.getElementById('AceTrypsin10').checked) total += (rates.AceTrypsin.price / 10) * 10;
 
@@ -297,7 +293,6 @@ function calculateTotal() {
     if (document.getElementById(id+opt2).checked) total += rates[id].price * opt2;
   });
 
-  // Consultation fee
   if (document.getElementById('consultFee').checked) total += 200;
 
   document.getElementById('result').textContent =
