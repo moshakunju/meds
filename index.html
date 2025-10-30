@@ -106,14 +106,16 @@
   }
 
   .ace-options,
-  .walmox-options {
+  .walmox-options,
+  .custom-options {
     display: flex;
     gap: 10px;
     align-items: center;
   }
 
   .ace-options label,
-  .walmox-options label {
+  .walmox-options label,
+  .custom-options label {
     display: flex;
     align-items: center;
     gap: 4px;
@@ -128,7 +130,7 @@
   <table>
     <tr>
       <th>Medicine</th>
-      <th>Rate (₹ / 10 Tabs)</th>
+      <th>Rate (₹)</th>
       <th>Select / Qty</th>
     </tr>
     <tr>
@@ -162,6 +164,80 @@
         <label><input type="checkbox" id="Walmox15"> 15 tabs</label>
       </td>
     </tr>
+
+    <!-- New Medicines -->
+    <tr>
+      <td>Aceclo Trypsin</td>
+      <td>130</td>
+      <td class="custom-options">
+        <label><input type="checkbox" id="AceTrypsin6"> 6 tabs</label>
+        <label><input type="checkbox" id="AceTrypsin10"> 10 tabs</label>
+      </td>
+    </tr>
+    <tr>
+      <td>Clohex Heal</td>
+      <td>302.5</td>
+      <td class="custom-options">
+        <label><input type="checkbox" id="ClohexHeal1"> 1</label>
+        <label><input type="checkbox" id="ClohexHeal2"> 2</label>
+      </td>
+    </tr>
+    <tr>
+      <td>Vantej Sensitive</td>
+      <td>181.5</td>
+      <td class="custom-options">
+        <label><input type="checkbox" id="VantejSensitive1"> 1</label>
+        <label><input type="checkbox" id="VantejSensitive2"> 2</label>
+      </td>
+    </tr>
+    <tr>
+      <td>Clohex ADS</td>
+      <td>97.5</td>
+      <td class="custom-options">
+        <label><input type="checkbox" id="ClohexADS1"> 1</label>
+        <label><input type="checkbox" id="ClohexADS2"> 2</label>
+      </td>
+    </tr>
+    <tr>
+      <td>Ibupor Syrup</td>
+      <td>60</td>
+      <td class="custom-options">
+        <label><input type="checkbox" id="Ibupor1"> 1</label>
+        <label><input type="checkbox" id="Ibupor2"> 2</label>
+      </td>
+    </tr>
+    <tr>
+      <td>Oneclav Suspension</td>
+      <td>670.5</td>
+      <td class="custom-options">
+        <label><input type="checkbox" id="Oneclav1"> 1</label>
+        <label><input type="checkbox" id="Oneclav2"> 2</label>
+      </td>
+    </tr>
+    <tr>
+      <td>Vantej Forte Paste</td>
+      <td>312.5</td>
+      <td class="custom-options">
+        <label><input type="checkbox" id="VantejForte1"> 1</label>
+        <label><input type="checkbox" id="VantejForte2"> 2</label>
+      </td>
+    </tr>
+    <tr>
+      <td>Colgate Sensitive Plus</td>
+      <td>180</td>
+      <td class="custom-options">
+        <label><input type="checkbox" id="Colgate1"> 1</label>
+        <label><input type="checkbox" id="Colgate2"> 2</label>
+      </td>
+    </tr>
+    <tr>
+      <td>Perigard Paste</td>
+      <td>230</td>
+      <td class="custom-options">
+        <label><input type="checkbox" id="Perigard1"> 1</label>
+        <label><input type="checkbox" id="Perigard2"> 2</label>
+      </td>
+    </tr>
   </table>
 
   <div class="consult">
@@ -180,7 +256,16 @@ function calculateTotal() {
     Novaclave625: { price: 204.96, tabs: 10 },
     AceclowalP: { price: 76.2 },
     Oflowaloz: { price: 159.5, tabs: 10 },
-    Walmox500: { price: 68.75 }
+    Walmox500: { price: 68.75 },
+    AceTrypsin: { price: 130 },
+    ClohexHeal: { price: 302.5 },
+    VantejSensitive: { price: 181.5 },
+    ClohexADS: { price: 97.5 },
+    Ibupor: { price: 60 },
+    Oneclav: { price: 670.5 },
+    VantejForte: { price: 312.5 },
+    Colgate: { price: 180 },
+    Perigard: { price: 230 }
   };
 
   let total = 0;
@@ -194,25 +279,26 @@ function calculateTotal() {
   });
 
   // Aceclowal P options
-  if (document.getElementById('Ace9').checked) {
-    total += (rates.AceclowalP.price / 10) * 9;
-  }
-  if (document.getElementById('Ace15').checked) {
-    total += (rates.AceclowalP.price / 10) * 15;
-  }
+  if (document.getElementById('Ace9').checked) total += (rates.AceclowalP.price / 10) * 9;
+  if (document.getElementById('Ace15').checked) total += (rates.AceclowalP.price / 10) * 15;
 
-  // Walmox 500 checkboxes
-  if (document.getElementById('Walmox9').checked) {
-    total += (rates.Walmox500.price / 10) * 9;
-  }
-  if (document.getElementById('Walmox15').checked) {
-    total += (rates.Walmox500.price / 10) * 15;
-  }
+  // Walmox 500
+  if (document.getElementById('Walmox9').checked) total += (rates.Walmox500.price / 10) * 9;
+  if (document.getElementById('Walmox15').checked) total += (rates.Walmox500.price / 10) * 15;
+
+  // New medicines
+  if (document.getElementById('AceTrypsin6').checked) total += (rates.AceTrypsin.price / 10) * 6;
+  if (document.getElementById('AceTrypsin10').checked) total += (rates.AceTrypsin.price / 10) * 10;
+
+  [['ClohexHeal',1,2],['VantejSensitive',1,2],['ClohexADS',1,2],
+   ['Ibupor',1,2],['Oneclav',1,2],['VantejForte',1,2],
+   ['Colgate',1,2],['Perigard',1,2]].forEach(([id, opt1, opt2])=>{
+    if (document.getElementById(id+opt1).checked) total += rates[id].price * opt1;
+    if (document.getElementById(id+opt2).checked) total += rates[id].price * opt2;
+  });
 
   // Consultation fee
-  if (document.getElementById('consultFee').checked) {
-    total += 200;
-  }
+  if (document.getElementById('consultFee').checked) total += 200;
 
   document.getElementById('result').textContent =
     total > 0 ? `💰 Total Cost: ₹${total.toFixed(2)}` : "Please select medicines.";
