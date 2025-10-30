@@ -3,201 +3,217 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Drug Combo Cost Calculator</title>
+<title>Medicine Cost Calculator</title>
 <style>
   body {
-    font-family: "Segoe UI", sans-serif;
-    background: linear-gradient(to bottom right, #f8f9fa, #e9ecef);
-    padding: 20px;
-    color: #333;
+    font-family: "Poppins", Arial, sans-serif;
+    background: linear-gradient(135deg, #e0f7ff, #f6faff);
+    color: #222;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
   }
+
+  .container {
+    background: #fff;
+    padding: 25px 30px;
+    border-radius: 16px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    width: 95%;
+    max-width: 480px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .container:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+  }
+
   h2 {
     text-align: center;
-    background: linear-gradient(90deg, #007bff, #00c851);
+    color: #0074D9;
+    margin-bottom: 20px;
+    letter-spacing: 0.5px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+
+  th, td {
+    padding: 10px 8px;
+    text-align: left;
+  }
+
+  th {
+    background: #0074D9;
     color: white;
-    padding: 12px;
-    border-radius: 12px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
   }
-  .medicine {
-    background: white;
-    border-radius: 16px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    padding: 16px;
-    margin-bottom: 14px;
-    transition: 0.3s;
+
+  tr:nth-child(even) {
+    background: #f7faff;
   }
-  .medicine:hover {
-    transform: scale(1.02);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  }
-  .options {
-    margin-top: 10px;
-  }
-  .result {
-    font-size: 20px;
-    font-weight: bold;
-    margin-top: 25px;
-    text-align: center;
-    background: #007bff;
-    color: white;
-    padding: 12px;
-    border-radius: 12px;
-  }
-  label {
-    font-weight: 600;
-  }
-  input[type="checkbox"], input[type="radio"] {
-    accent-color: #007bff;
+
+  input[type="checkbox"] {
     transform: scale(1.2);
+    accent-color: #0074D9;
+    cursor: pointer;
+  }
+
+  .consult {
+    margin: 15px 0;
+    text-align: center;
+    font-weight: 500;
+  }
+
+  button {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(90deg, #0074D9, #0099ff);
+    color: white;
+    font-weight: 600;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1em;
+    letter-spacing: 0.3px;
+    box-shadow: 0 4px 12px rgba(0, 116, 217, 0.3);
+    transition: all 0.25s ease;
+  }
+
+  button:hover {
+    background: linear-gradient(90deg, #0064bf, #0088e0);
+    box-shadow: 0 6px 16px rgba(0, 116, 217, 0.45);
+    transform: translateY(-2px);
+  }
+
+  #result {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 1.25em;
+    font-weight: 600;
+    color: #0074D9;
+    background: #f0f8ff;
+    padding: 12px;
+    border-radius: 10px;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.08);
+  }
+
+  .multi-options {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .multi-options label {
+    display: flex;
+    align-items: center;
+    gap: 4px;
   }
 </style>
 </head>
 <body>
 
-<h2>Drug Combo Cost Calculator</h2>
+<div class="container">
+  <h2>💊 Medicine Cost Calculator</h2>
 
-<div id="medicines">
-  <!-- 1 -->
-  <div class="medicine" data-name="Periogard Paste" data-cost="230">
-    <label>Periogard Paste (Rs 230)</label>
-    <div class="options">
-      <input type="checkbox" value="1"> 1
-      <input type="checkbox" value="2"> 2
-    </div>
+  <table>
+    <tr>
+      <th>Medicine</th>
+      <th>Rate (₹)</th>
+      <th>Select / Qty</th>
+    </tr>
+
+    <tr><td>Periogard Paste</td><td>230</td><td class="multi-options"><label><input type="checkbox" id="Periogard1"> 1</label><label><input type="checkbox" id="Periogard2"> 2</label></td></tr>
+    <tr><td>Colgate Sensitive Plus</td><td>180</td><td class="multi-options"><label><input type="checkbox" id="Colgate1"> 1</label><label><input type="checkbox" id="Colgate2"> 2</label></td></tr>
+    <tr><td>Vantej Forte Paste</td><td>312.5</td><td class="multi-options"><label><input type="checkbox" id="VantejF1"> 1</label><label><input type="checkbox" id="VantejF2"> 2</label></td></tr>
+    <tr><td>Vantej Sensitive</td><td>181.5</td><td class="multi-options"><label><input type="checkbox" id="Vantej1"> 1</label><label><input type="checkbox" id="Vantej2"> 2</label></td></tr>
+    <tr><td>Clohex ADS</td><td>97.5</td><td class="multi-options"><label><input type="checkbox" id="ADS1"> 1</label><label><input type="checkbox" id="ADS2"> 2</label></td></tr>
+    <tr><td>Ibupor Syrup</td><td>60</td><td class="multi-options"><label><input type="checkbox" id="Ibu1"> 1</label><label><input type="checkbox" id="Ibu2"> 2</label></td></tr>
+    <tr><td>Oneclav Suspension</td><td>67.5</td><td class="multi-options"><label><input type="checkbox" id="One1"> 1</label><label><input type="checkbox" id="One2"> 2</label></td></tr>
+    <tr><td>Clohex HEAL</td><td>302.5</td><td class="multi-options"><label><input type="checkbox" id="Heal1"> 1</label><label><input type="checkbox" id="Heal2"> 2</label></td></tr>
+    <tr><td>Novaclave 625 (10 tabs)</td><td>204.96</td><td><input type="checkbox" id="Novaclave625"></td></tr>
+    <tr><td>Aceclo Trypsin</td><td>130</td><td class="multi-options"><label><input type="checkbox" id="Tryp6"> 6</label><label><input type="checkbox" id="Tryp10"> 10</label></td></tr>
+    <tr><td>Walapan 40 (5 tabs)</td><td>84.5</td><td><input type="checkbox" id="Walapan40"></td></tr>
+    <tr><td>Walmox 500</td><td>68.75</td><td class="multi-options"><label><input type="checkbox" id="Walmox9"> 9</label><label><input type="checkbox" id="Walmox15"> 15</label></td></tr>
+    <tr><td>Aceclowal P</td><td>76.2</td><td class="multi-options"><label><input type="checkbox" id="Ace9"> 9</label><label><input type="checkbox" id="Ace15"> 15</label></td></tr>
+  </table>
+
+  <div class="consult">
+    <label><input type="checkbox" id="consultFee"> Include Consultation Fee (₹200)</label>
   </div>
 
-  <!-- 2 -->
-  <div class="medicine" data-name="Colgate Sensitive Plus" data-cost="180">
-    <label>Colgate Sensitive Plus (Rs 180)</label>
-    <div class="options">
-      <input type="checkbox" value="1"> 1
-      <input type="checkbox" value="2"> 2
-    </div>
-  </div>
+  <button type="button" onclick="calculateTotal()">Calculate Total</button>
 
-  <!-- 3 -->
-  <div class="medicine" data-name="Vantej Forte Paste" data-cost="312.5">
-    <label>Vantej Forte Paste (Rs 312.5)</label>
-    <div class="options">
-      <input type="checkbox" value="1"> 1
-      <input type="checkbox" value="2"> 2
-    </div>
-  </div>
-
-  <!-- 4 -->
-  <div class="medicine" data-name="Vantej Sensitive" data-cost="181.5">
-    <label>Vantej Sensitive (Rs 181.5)</label>
-    <div class="options">
-      <input type="checkbox" value="1"> 1
-      <input type="checkbox" value="2"> 2
-    </div>
-  </div>
-
-  <!-- 5 -->
-  <div class="medicine" data-name="Clohex ADS" data-cost="97.5">
-    <label>Clohex ADS (Rs 97.5)</label>
-    <div class="options">
-      <input type="checkbox" value="1"> 1
-      <input type="checkbox" value="2"> 2
-    </div>
-  </div>
-
-  <!-- 6 -->
-  <div class="medicine" data-name="Ibupor Syrup" data-cost="60">
-    <label>Ibupor Syrup (Rs 60)</label>
-    <div class="options">
-      <input type="checkbox" value="1"> 1
-      <input type="checkbox" value="2"> 2
-    </div>
-  </div>
-
-  <!-- 7 -->
-  <div class="medicine" data-name="Oneclav Suspension" data-cost="67.5">
-    <label>Oneclav Suspension (Rs 67.5)</label>
-    <div class="options">
-      <input type="checkbox" value="1"> 1
-      <input type="checkbox" value="2"> 2
-    </div>
-  </div>
-
-  <!-- 8 -->
-  <div class="medicine" data-name="Clohex Heal" data-cost="302.5">
-    <label>Clohex Heal (Rs 302.5)</label>
-    <div class="options">
-      <input type="checkbox" value="1"> 1
-      <input type="checkbox" value="2"> 2
-    </div>
-  </div>
-
-  <!-- 9 -->
-  <div class="medicine" data-name="Novoclave 625" data-cost="192">
-    <label>Novoclave 625 (Rs 192)</label>
-    <div class="options">
-      <input type="checkbox" value="1"> 6
-      <input type="checkbox" value="2"> 10
-    </div>
-  </div>
-
-  <!-- 10 -->
-  <div class="medicine" data-name="Aceclo Trypsin" data-cost="130">
-    <label>Aceclo Trypsin (Rs 130)</label>
-    <div class="options">
-      <input type="checkbox" value="6"> 6
-      <input type="checkbox" value="10"> 10
-    </div>
-  </div>
-
-  <!-- 11 -->
-  <div class="medicine" data-name="Walapan 40" data-cost="89">
-    <label>Walapan 40 (Rs 89)</label>
-    <div class="options">
-      <input type="checkbox" value="15"> 15
-      <input type="checkbox" value="9"> 9
-    </div>
-  </div>
-
-  <!-- 12 -->
-  <div class="medicine" data-name="Walmox 500" data-cost="95">
-    <label>Walmox 500 (Rs 95)</label>
-    <div class="options">
-      <input type="checkbox" value="15"> 15
-      <input type="checkbox" value="9"> 9
-    </div>
-  </div>
-
-  <!-- 13 -->
-  <div class="medicine" data-name="Aceclowal P" data-cost="110">
-    <label>Aceclowal P (Rs 110)</label>
-    <div class="options">
-      <input type="checkbox" value="15"> 15
-      <input type="checkbox" value="9"> 9
-    </div>
-  </div>
+  <div id="result"></div>
 </div>
 
-<div class="result" id="result">Total: ₹0</div>
-
 <script>
-const medicines = document.querySelectorAll('.medicine');
-const result = document.getElementById('result');
-
-medicines.forEach(med => {
-  const checkboxes = med.querySelectorAll('input[type="checkbox"]');
-  checkboxes.forEach(box => {
-    box.addEventListener('change', calculateTotal);
-  });
-});
-
 function calculateTotal() {
+  const rates = {
+    Walapan40: { price: 84.5, tabs: 5 },
+    Novaclave625: { price: 204.96, tabs: 10 },
+    AceclowalP: { price: 76.2 },
+    Walmox500: { price: 68.75 },
+    AcecloTrypsin: { price: 130 },
+    Periogard: { price: 230 },
+    Colgate: { price: 180 },
+    VantejF: { price: 312.5 },
+    Vantej: { price: 181.5 },
+    ADS: { price: 97.5 },
+    Ibu: { price: 60 },
+    One: { price: 67.5 },
+    Heal: { price: 302.5 }
+  };
+
   let total = 0;
-  medicines.forEach(med => {
-    const cost = parseFloat(med.dataset.cost);
-    const boxes = med.querySelectorAll('input[type="checkbox"]');
-    boxes.forEach(b => {
-      if (b.checked) total += cost;
-    });
+
+  // Fixed-quantity meds
+  ['Walapan40', 'Novaclave625'].forEach(id => {
+    if (document.getElementById(id).checked) {
+      const costPerTab = rates[id].price / 10;
+      total += costPerTab * rates[id].tabs;
+    }
   });
-  result.textContent = `Total: ₹${total.toFixed(2)}`;
+
+  // Aceclowal P
+  if (document.getElementById('Ace9').checked) total += (rates.AceclowalP.price / 10) * 9;
+  if (document.getElementById('Ace15').checked) total += (rates.AceclowalP.price / 10) * 15;
+
+  // Walmox 500
+  if (document.getElementById('Walmox9').checked) total += (rates.Walmox500.price / 10) * 9;
+  if (document.getElementById('Walmox15').checked) total += (rates.Walmox500.price / 10) * 15;
+
+  // Aceclo Trypsin
+  if (document.getElementById('Tryp6').checked) total += rates.AcecloTrypsin.price * 6;
+  if (document.getElementById('Tryp10').checked) total += rates.AcecloTrypsin.price * 10;
+
+  // 1 or 2 quantity items
+  const multi = [
+    ['Periogard', 'Periogard1', 'Periogard2'],
+    ['Colgate', 'Colgate1', 'Colgate2'],
+    ['VantejF', 'VantejF1', 'VantejF2'],
+    ['Vantej', 'Vantej1', 'Vantej2'],
+    ['ADS', 'ADS1', 'ADS2'],
+    ['Ibu', 'Ibu1', 'Ibu2'],
+    ['One', 'One1', 'One2'],
+    ['Heal', 'Heal1', 'Heal2']
+  ];
+  multi.forEach(([key, id1, id2]) => {
+    if (document.getElementById(id1).checked) total += rates[key].price * 1;
+    if (document.getElementById(id2).checked) total += rates[key].price * 2;
+  });
+
+  if (document.getElementById('consultFee').checked) total += 200;
+
+  document.getElementById('result').textContent =
+    total > 0 ? `💰 Total Cost: ₹${total.toFixed(2)}` : "Please select medicines.";
 }
 </script>
 
